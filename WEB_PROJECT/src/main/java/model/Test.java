@@ -18,45 +18,51 @@ import java.sql.Statement;
 @WebServlet("/Test")
 public class Test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Test() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public Test() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String url = "jdbc:mysql://localhost:3306/shoes_store_database";
-		
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(url, "root", "LeTrungdong743");
 
-			Statement statement =  connection.createStatement();
-			
+			Statement statement = connection.createStatement();
+
 			ResultSet result = statement.executeQuery("select * from product");
-			while(result.next()) {
+			while (result.next()) {
 				System.out.print(result.getString(1) + " ");
-				System.out.print(result.getString(2)+ " ");
-				System.out.print(result.getString(3)+ " ");
-				System.out.print(result.getString(4)+ " ");
-				System.out.println(result.getString(5)+ " ");
+				System.out.print(result.getString(2) + " ");
+				System.out.print(result.getString(3) + " ");
+				System.out.print(result.getString(4) + " ");
+				System.out.println(result.getString(5) + " ");
+
 			}
+			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
