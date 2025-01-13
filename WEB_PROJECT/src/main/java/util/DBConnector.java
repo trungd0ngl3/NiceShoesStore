@@ -6,32 +6,36 @@ import java.sql.SQLException;
 
 public class DBConnector {
 	public static Connection connection;
-	public static synchronized Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/shoes_store_db";
-		if(connection != null) {
+
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/shoes_store_db";
+	private static final String JDBC_USER = "root";
+	private static final String JDBC_PASSWORD = "";
+
+	public static Connection getConnection() {
+		if (connection != null) {
 			return connection;
+		} else {
+
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		else {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(url, "root", "");
-	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}}
 		return connection;
 	}
-	
-	public static synchronized void closeConnection() {
-		if(connection != null) {
+
+	public static void closeConnection() {
+		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}finally{
+			} finally {
 				connection = null;
 			}
 		}
 	}
+
 }

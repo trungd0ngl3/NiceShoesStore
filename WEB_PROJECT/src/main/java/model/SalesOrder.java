@@ -5,7 +5,7 @@ public class SalesOrder {
 
 	private Cart cart;
 
-	private Customer customer;
+	private User user;
 
 	private Address shippingAddress;
 
@@ -28,12 +28,12 @@ public class SalesOrder {
 		this.cart = cart;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public User getCustomer() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer(User user) {
+		this.user = user;
 	}
 
 	public Address getShippingAddress() {
